@@ -66,6 +66,11 @@ func (s *BareMetalMachineSpec) IsValid() error {
 }
 
 // BareMetalMachineStatus defines the observed state of BareMetalMachine
+// todo(jbrette): We need to figure out if we want to reuse the NodeRef
+// or if the ProviderID is enough.
+// todo(jbrette): We need to figure out if this is the right thing to
+// have two addresses fields, a first one in capi.Machine and a second one
+// in capbm.BareMetalMachine
 type BareMetalMachineStatus struct {
 	capi.MachineStatus `json:",inline"`
 
