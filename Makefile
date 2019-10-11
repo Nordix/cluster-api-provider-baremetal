@@ -46,11 +46,10 @@ KUSTOMIZE := $(TOOLS_BIN_DIR)/kustomize
 
 # Define Docker related variables. Releases should modify and double check these vars.
 # REGISTRY ?= gcr.io/$(shell gcloud config get-value project)
-REGISTRY ?= keleustes
 STAGING_REGISTRY := gcr.io/k8s-staging-cluster-api-baremetal
 PROD_REGISTRY := us.gcr.io/k8s-artifacts-prod/cluster-api-baremetal
 IMAGE_NAME ?= cluster-api-baremetal-controller
-CONTROLLER_IMG ?= $(REGISTRY)/$(IMAGE_NAME)
+CONTROLLER_IMG ?= $(IMAGE_NAME)
 TAG ?= dev
 ARCH ?= amd64
 ALL_ARCH = amd64 arm arm64 ppc64le s390x
