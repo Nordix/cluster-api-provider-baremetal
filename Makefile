@@ -259,7 +259,7 @@ set-manifest-pull-policy:
 ## Deploying
 ## --------------------------------------
 
-manifests: generate-manifests
+manifests: generate-manifests generate-go $(KUSTOMIZE)
 	$(KUSTOMIZE) build config/default \
 		-o examples/provider-components/provider-components-baremetal.yaml
 	$(KUSTOMIZE) build "github.com/kubernetes-sigs/cluster-api-bootstrap-provider-kubeadm/config/default/?ref=master" \
