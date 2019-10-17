@@ -43,6 +43,40 @@ spec:
     controllerManager:
       extraArgs:
         cloud-provider: baremetal
+  preKubeadmCommands:
+    # Install keepalived
+    - yum install -y gcc kernel-headers kernel-devel
+    - yum update -y
+    - yum install -y keepalived
+    # The following two need to run for init
+    # If you are joining, move them to postKubeadmCommands
+    - systemctl start keepalived
+    - systemctl enable keepalived
+  postKubeadmCommands:
+    - touch /tmp/createdPostkubeam
+  files:
+    - path: /etc/keepalived/keepalived.conf
+      content: |
+        ! Configuration File for keepalived
+        global_defs {
+            notification_email {
+            sysadmin@example.com
+            support@example.com
+            }
+            notification_email_from lb@example.com
+            smtp_server localhost
+            smtp_connect_timeout 30
+        }
+        vrrp_instance VI_1 {
+            state MASTER
+            interface eth1
+            virtual_router_id 1
+            priority 101
+            advert_int 1
+            virtual_ipaddress {
+                192.168.111.249
+            }
+        }
 ---
 apiVersion: cluster.x-k8s.io/v1alpha2
 kind: Machine
@@ -83,6 +117,38 @@ spec:
       name: '{{ ds.meta_data.hostname }}'
       kubeletExtraArgs:
         cloud-provider: baremetal
+  preKubeadmCommands:
+    # Install keepalived
+    - yum install -y gcc kernel-headers kernel-devel
+    - yum update -y
+    - yum install -y keepalived
+    - systemctl stop keepalived
+  postKubeadmCommands:
+    - systemctl start keepalived
+    - systemctl enable keepalived
+  files:
+    - path: /etc/keepalived/keepalived.conf
+      content: |
+        ! Configuration File for keepalived
+        global_defs {
+            notification_email {
+            sysadmin@example.com
+            support@example.com
+            }
+            notification_email_from lb@example.com
+            smtp_server localhost
+            smtp_connect_timeout 30
+        }
+        vrrp_instance VI_1 {
+            state MASTER
+            interface eth1
+            virtual_router_id 2
+            priority 101
+            advert_int 1
+            virtual_ipaddress {
+                192.168.111.249
+            }
+        }
 ---
 apiVersion: cluster.x-k8s.io/v1alpha2
 kind: Machine
@@ -123,3 +189,35 @@ spec:
       name: '{{ ds.meta_data.hostname }}'
       kubeletExtraArgs:
         cloud-provider: baremetal
+  preKubeadmCommands:
+    # Install keepalived
+    - yum install -y gcc kernel-headers kernel-devel
+    - yum update -y
+    - yum install -y keepalived
+    - systemctl stop keepalived
+  postKubeadmCommands:
+    - systemctl start keepalived
+    - systemctl enable keepalived
+  files:
+    - path: /etc/keepalived/keepalived.conf
+      content: |
+        ! Configuration File for keepalived
+        global_defs {
+            notification_email {
+            sysadmin@example.com
+            support@example.com
+            }
+            notification_email_from lb@example.com
+            smtp_server localhost
+            smtp_connect_timeout 30
+        }
+        vrrp_instance VI_1 {
+            state MASTER
+            interface eth1
+            virtual_router_id 3
+            priority 101
+            advert_int 1
+            virtual_ipaddress {
+                192.168.111.249
+            }
+        }
