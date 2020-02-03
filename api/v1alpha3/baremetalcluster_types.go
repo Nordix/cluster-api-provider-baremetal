@@ -32,9 +32,12 @@ const (
 // BareMetalClusterSpec defines the desired state of BareMetalCluster.
 type BareMetalClusterSpec struct {
 	// ControlPlaneEndpoint represents the endpoint used to communicate with the control plane.
-	// +optional
 	ControlPlaneEndpoint APIEndpoint `json:"controlPlaneEndpoint"`
 	NoCloudProvider      bool        `json:"noCloudProvider,omitempty"`
+
+	// ClusterName is the name of the Cluster this object belongs to.
+	// +kubebuilder:validation:MinLength=1
+	ClusterName     string `json:"clusterName"`
 }
 
 // IsValid returns an error if the object is not valid, otherwise nil. The

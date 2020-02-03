@@ -24,6 +24,7 @@ metadata:
 #   cloudsSecret:
 #     name: cloud-config
 spec:
+  clusterName: ${CLUSTER_NAME}
   controlPlaneEndpoint:
     host: 192.168.111.249
     port: 6443
